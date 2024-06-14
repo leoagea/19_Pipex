@@ -6,7 +6,7 @@
 #    By: lagea <lagea@student.s19.be>               +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/06 01:08:23 by lagea             #+#    #+#              #
-#    Updated: 2024/06/14 12:58:35 by lagea            ###   ########.fr        #
+#    Updated: 2024/06/14 17:23:30 by lagea            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,7 +23,7 @@ SRC_DIR		= src/
 OBJ_DIR		= obj/
 INC_DIR		= inc/
 
-SRC 		= src/main.c src/check.c src/events.c src/exit.c src/map.c src/render.c src/xpm.c
+SRC 		= src/main.c src/process.c
 OBJ			= $(SRC:$(SRC_DIR)%.c=$(OBJ_DIR)%.o)
 
 LIBFT 		= lib/libft.a
@@ -33,7 +33,6 @@ CC			= gcc
 RM			= rm -f
 C_FLAGS		= -Wall -Wextra -Werror
 INCS 		= -I$(INC_DIR) -I.
-MLX			= -Lmlx -lmlx -framework OpenGL -framework AppKit
 
 TOTAL_FILES 	:= $(words $(SRC))
 CURRENT_FILE 	:= 0
@@ -46,14 +45,14 @@ endef
 
 $(OBJ_DIR)%.o: $(SRC_DIR)%.c
 	@mkdir -p $(OBJ_DIR)
-	@$(CC) $(C_FLAGS) $(INCS) -Imlx -c $< -g -o $@
+	@$(CC) $(C_FLAGS) $(INCS) -c $< -g -o $@
 	$(call progress_pipex)
 
 all: $(LIBFT) $(NAME)
 
 $(NAME): $(LIBFT) $(OBJ)
 	@echo "$(GREEN)Linking objects to create executable...$(NC)"
-	@$(CC) $(OBJ) -Llib/ -lft $(MLX) -g -o $(NAME)
+	@$(CC) $(OBJ) -Llib/ -lft -g -o $(NAME)
 	@echo "$(BLUE)Executable $(NAME) created!$(NC)"
 	
 $(LIBFT):
