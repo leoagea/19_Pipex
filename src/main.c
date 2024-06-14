@@ -6,13 +6,13 @@
 /*   By: lagea <lagea@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 13:02:20 by lagea             #+#    #+#             */
-/*   Updated: 2024/06/14 13:35:50 by lagea            ###   ########.fr       */
+/*   Updated: 2024/06/14 18:15:14 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/pipex.h"
 
-static check_perm(char **av)
+static void check_perm(char **av)
 {
 	if (ft_strncmp(av[2], "/dev/stdin",10) == 0 || ft_strncmp(av[2], "/dev/random",11) == 0 || ft_strncmp(av[2], "/dev/urandom",12) == 0)
 	{
@@ -22,6 +22,7 @@ static check_perm(char **av)
 		exit(1);
 	}
 }
+
 int main(int ac, char **av, char **envp)
 {
 	int fd[2];
@@ -53,4 +54,6 @@ int main(int ac, char **av, char **envp)
 		child_process(fd, av, envp);
 	else
 		parent_process(fd, av, envp);
+	wait(NULL);
+	return 0;
 }
