@@ -1,0 +1,12 @@
+➜  pipex git:(main) ✗ ct Makefile | cat> test1.txt
+zsh: command not found: ct
+➜  pipex git:(main) ✗ ./pipex  Makefil ct cat test1.txt 
+zsh: No such file or directory: Makefil
+
+env -i ./pipex Makefile cat cat test1.txt          
+[1]    36640 segmentation fault  env -i ./pipex Makefile cat cat test1.txt
+
+ time ./pipex Makefile "sleep 2" "sleep 4" test1.txt
+./pipex Makefile "sleep 2" "sleep 4" test1.txt  0.00s user 0.00s system 0% cpu 4.010 total
+ time ./pipex Makefile "sleep 4" "sleep 2" test1.txt
+./pipex Makefile "sleep 4" "sleep 2" test1.txt  0.00s user 0.00s system 0% cpu 2.011 total
