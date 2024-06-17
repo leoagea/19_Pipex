@@ -6,7 +6,7 @@
 /*   By: lagea <lagea@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 13:02:20 by lagea             #+#    #+#             */
-/*   Updated: 2024/06/17 14:30:03 by lagea            ###   ########.fr       */
+/*   Updated: 2024/06/17 14:56:18 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,10 +60,8 @@ int	main(int ac, char **av, char **envp)
 			exit_error();
 		if (id == 0)
 			parent_process(fd, av, envp);
-		wait(NULL);
 	}
 	if (id == 0)
 		child_process(fd, av, envp);
-	wait(NULL);
 	return (0);
 }
