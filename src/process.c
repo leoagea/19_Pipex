@@ -6,11 +6,20 @@
 /*   By: lagea <lagea@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 13:13:56 by lagea             #+#    #+#             */
-/*   Updated: 2024/06/17 14:47:47 by lagea            ###   ########.fr       */
+/*   Updated: 2024/06/17 14:49:24 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/pipex.h"
+
+static void	wrong_path(char **cmd)
+{
+	write(2, "zsh: command not found:", 23);
+	write(2, cmd[0], ft_strlen(cmd[0]));
+	write(2, "\n", 1);
+	free_arr(cmd);
+	exit(127);
+}
 
 static char	*path_cmd(char *cmd, char **envp, int i)
 {
@@ -120,13 +129,4 @@ void	parent_process(int *fd, char **av, char **envp)
 	close(fd[0]);
 	close(outfile);
 	execution(av[3], envp);
-}
-
-static void	wrong_path(char **cmd)
-{
-	write(2, "zsh: command not found:", 23);
-	write(2, cmd[0], ft_strlen(cmd[0]));
-	write(2, "\n", 1);
-	free_arr(cmd);
-	exit(127);
 }
