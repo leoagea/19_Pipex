@@ -6,7 +6,7 @@
 /*   By: lagea <lagea@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 13:02:20 by lagea             #+#    #+#             */
-/*   Updated: 2024/06/17 12:56:07 by lagea            ###   ########.fr       */
+/*   Updated: 2024/06/17 13:15:10 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,8 @@ int	main(int ac, char **av, char **envp)
 		write(2, "Too much arguments\n", 19);
 		return (1);
 	}
+	if (!envp || !*envp)
+		return 1;
 	check_perm(av);
 	if (pipe(fd) == -1)
 		exit_error();
@@ -47,9 +49,12 @@ int	main(int ac, char **av, char **envp)
 	if (id == -1)
 		exit_error();
 	if (id == 0)
+	{
 		child_process(fd, av, envp);
+	}
 	else
+	{
 		parent_process(fd, av, envp);
-	wait(NULL);
+	}
 	return (0);
 }
