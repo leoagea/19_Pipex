@@ -6,7 +6,7 @@
 /*   By: lagea <lagea@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 13:02:20 by lagea             #+#    #+#             */
-/*   Updated: 2024/06/17 13:37:18 by lagea            ###   ########.fr       */
+/*   Updated: 2024/06/17 14:30:03 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,23 +25,28 @@ static void	check_perm(char **av)
 	}
 }
 
+static void	check_ac(int ac)
+{
+	if (ac < 5)
+	{
+		write(2, "Not enough arguments\n", 21);
+		exit(1);
+	}
+	if (ac > 5)
+	{
+		write(2, "Too much arguments\n", 19);
+		exit(1);
+	}
+}
+
 int	main(int ac, char **av, char **envp)
 {
 	int	fd[2];
 	int	id;
 
-	if (ac < 5)
-	{
-		write(2, "Not enough arguments\n", 21);
-		return (1);
-	}
-	if (ac > 5)
-	{
-		write(2, "Too much arguments\n", 19);
-		return (1);
-	}
+	check_ac(ac);
 	if (!envp || !*envp)
-		return 1;
+		return (1);
 	check_perm(av);
 	if (pipe(fd) == -1)
 		exit_error();
@@ -54,7 +59,7 @@ int	main(int ac, char **av, char **envp)
 		if (id == -1)
 			exit_error();
 		if (id == 0)
-			parent_process(fd, av, envp);	
+			parent_process(fd, av, envp);
 		wait(NULL);
 	}
 	if (id == 0)
