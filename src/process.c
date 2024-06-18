@@ -6,7 +6,7 @@
 /*   By: lagea <lagea@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/14 13:13:56 by lagea             #+#    #+#             */
-/*   Updated: 2024/06/17 14:49:24 by lagea            ###   ########.fr       */
+/*   Updated: 2024/06/18 13:07:09 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,10 +42,10 @@ static char	*path_cmd(char *cmd, char **envp, int i)
 		final_path = ft_strjoin(dir_cmd[i], temp);
 		if (!final_path)
 			exit_malloc();
-		free(temp);
+		ft_free(&temp);
 		if (access(final_path, F_OK) == 0)
 			return (free_arr(dir_cmd), final_path);
-		free(final_path);
+		ft_free(&final_path);
 	}
 	return (free_arr(dir_cmd), NULL);
 }
@@ -71,11 +71,11 @@ static void	execution(char *cmd, char **envp)
 		wrong_path(cmd_arr);
 	if (execve(path, cmd_arr, envp) == -1)
 	{
-		free(path);
+		ft_free(&path);
 		free_arr(cmd_arr);
 		exit_error();
 	}
-	free(path);
+	ft_free(&path);
 	free_arr(cmd_arr);
 }
 
