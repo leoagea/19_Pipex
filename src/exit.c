@@ -6,7 +6,7 @@
 /*   By: lagea <lagea@student.s19.be>               +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 12:45:14 by lagea             #+#    #+#             */
-/*   Updated: 2024/06/17 14:48:12 by lagea            ###   ########.fr       */
+/*   Updated: 2024/06/18 13:05:22 by lagea            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,15 @@ void	exit_error(void)
 {
 	perror("zsh");
 	exit(1);
+}
+
+void	ft_free(char **str)
+{
+	if (str)
+	{
+		free(*str);
+		*str = NULL;
+	}
 }
 
 void	free_arr(char **arr)
